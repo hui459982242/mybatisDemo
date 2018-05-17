@@ -151,4 +151,22 @@ public class UserMapperTest extends BaseMapperTest {
             sqlSession.close();
         }
     }
+
+    public void updateUser(){
+        SqlSession sqlSession = getSqlSession();
+        try{
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            SysUser user = userMapper.selectById(1l);
+            System.out.println("原用户名："+user.getUserName());
+            user.setUserName("adminTest");
+            user.setUserEmail("adminTest@icloud.com");
+            user.setUserInfo("这是一个update信息");
+            userMapper.updateById(user);
+        }catch (Exception e){
+            sqlSession.rollback();
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+    }
 }
