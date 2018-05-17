@@ -38,4 +38,11 @@ public interface UserMapper {
      * @return
      */
     int insert2(SysUser sysUser);
+
+    /**
+     * 新增用户，并返回自增id
+     * @param sysUser
+     * @return
+     */
+    int insert3(SysUser sysUser);
 }
