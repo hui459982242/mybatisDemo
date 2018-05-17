@@ -29,12 +29,14 @@
     </environments>
     <mappers>
         <!-- mapper的包路径+xml文件 -->
-        <mapper resource="mapper/CountryMapper.xml"/>
-        <!--<package name="zh.mybatis.dao"/>-->
+        <!-- 如果用package这种简便的方式去处理接口和mapper.xml的话，需要mapper.xml的存放路径跟class保持一致 -->
+        <package name="zh.mybatis.dao"/>
+        <!-- 这种方式就不是必须要跟class的包名保持一致了，但是要注意mapper.xml中的namespace命名空间 -->
+        <!--<mapper resource="mapper/CountryMapper.xml"/>
         <mapper resource="mapper/UserMapper.xml"/>
         <mapper resource="mapper/RoleMapper.xml"/>
         <mapper resource="mapper/PrivilegeMapper.xml"/>
         <mapper resource="mapper/UserRoleMapper.xml"/>
-        <mapper resource="mapper/RolePrivilegeMapper.xml"/>
+        <mapper resource="mapper/RolePrivilegeMapper.xml"/>-->
     </mappers>
 </configuration>

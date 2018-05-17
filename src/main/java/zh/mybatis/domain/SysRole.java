@@ -10,7 +10,7 @@ public class SysRole {
     /**
      * 角色名称
      */
-    private String role_name;
+    private String roleName;
     /**
      * 有效标志
      */
@@ -18,11 +18,15 @@ public class SysRole {
     /**
      * 创建人ID
      */
-    private int creat_by;
+    private int creatBy;
     /**
      * 创建时间
      */
-    private Date create_time;
+    private Date createTime;
+    /**
+     * 对应用户信息
+     */
+    private SysUser user;
 
     public Long getId() {
         return id;
@@ -32,12 +36,12 @@ public class SysRole {
         this.id = id;
     }
 
-    public String getRole_name() {
-        return role_name;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRole_name(String role_name) {
-        this.role_name = role_name;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public int getEnabled() {
@@ -48,30 +52,39 @@ public class SysRole {
         this.enabled = enabled;
     }
 
-    public int getCreat_by() {
-        return creat_by;
+    public int getCreatBy() {
+        return creatBy;
     }
 
-    public void setCreat_by(int creat_by) {
-        this.creat_by = creat_by;
+    public void setCreatBy(int creatBy) {
+        this.creatBy = creatBy;
     }
 
-    public Date getCreate_time() {
-        return create_time;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreate_time(Date create_time) {
-        this.create_time = create_time;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public SysUser getUser() {
+        return user;
+    }
+
+    public void setUser(SysUser user) {
+        this.user = user;
     }
 
     @Override
     public String toString() {
         return "SysRole{" +
                 "id=" + id +
-                ", role_name='" + role_name + '\'' +
+                ", roleName='" + roleName + '\'' +
                 ", enabled=" + enabled +
-                ", creat_by=" + creat_by +
-                ", create_time=" + create_time +
+                ", creatBy=" + creatBy +
+                ", createTime=" + createTime +
+                ", user=["+user.getUserName()+","+user.getUserEmail()+"]" +
                 '}';
     }
 }

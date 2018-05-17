@@ -23,6 +23,9 @@ public class SysUser {
      * 用户邮箱
      */
     private String userEmail;
+    /**
+     * 用户简介
+     */
     private String userInfo;
     /**
      * 用户头像
