@@ -6,6 +6,7 @@ import org.junit.Test;
 import zh.mybatis.domain.SysRole;
 import zh.mybatis.domain.SysUser;
 
+import java.util.Date;
 import java.util.List;
 
 public class UserMapperTest extends BaseMapperTest {
@@ -63,6 +64,59 @@ public class UserMapperTest extends BaseMapperTest {
     private void printSysRoleList(List<SysRole> list){
         for (SysRole role:list){
             System.out.println(role.toString());
+        }
+    }
+
+    @Test
+    public void testInsertUser(){
+        SqlSession sqlSession = getSqlSession();
+        try{
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            //创建一个user对象
+            SysUser user = new SysUser();
+            user.setUserName("test123");
+            user.setUserEmail("test123@qq.com");
+            user.setCreateTime(new Date());
+            user.setUserInfo("这是一个mybatis添加的数据");
+            user.setUserPassword("123456");
+            //将新建的对象插入数据库中，特别注意这里的返回值result是执行的SQL影响的行数
+            int result = userMapper.insert(user);
+            //只插入l 条数据
+            System.out.println(result);
+        }finally {
+            //为了不影响其他测试，这里选择回滚
+            //由于默认的sqlSessionFactory.openSession（）是不自动提交的
+            //因此不手动执行commit也不会提交到数据库
+            sqlSession.rollback();
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testInsert2User(){
+        SqlSession sqlSession = getSqlSession();
+        try{
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            //创建一个user对象
+            SysUser user = new SysUser();
+            user.setUserName("test123");
+            user.setUserEmail("test123@qq.com");
+            user.setCreateTime(new Date());
+            user.setUserInfo("这是一个mybatis添加的数据");
+            user.setUserPassword("123456");
+            //将新建的对象插入数据库中，特别注意这里的返回值result是执行的SQL影响的行数
+            int result = userMapper.insert2(user);
+            //只插入l 条数据
+            System.out.println(result);
+            //因为id回写，所以id不为null
+            System.out.println(user.getId());
+        }finally {
+            //为了不影响其他测试，这里选择回滚
+            //由于默认的sqlSessionFactory.openSession（）是不自动提交的
+            //因此不手动执行commit也不会提交到数据库
+            sqlSession.rollback();
+            //不要忘记关闭sqlSession
+            sqlSession.close();
         }
     }
 }
