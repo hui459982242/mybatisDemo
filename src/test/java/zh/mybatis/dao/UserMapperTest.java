@@ -152,6 +152,7 @@ public class UserMapperTest extends BaseMapperTest {
         }
     }
 
+    @Test
     public void updateUser(){
         SqlSession sqlSession = getSqlSession();
         try{
@@ -162,7 +163,30 @@ public class UserMapperTest extends BaseMapperTest {
             user.setUserEmail("adminTest@icloud.com");
             user.setUserInfo("这是一个update信息");
             userMapper.updateById(user);
+            sqlSession.commit();
         }catch (Exception e){
+            sqlSession.rollback();
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void deleteUser(){
+        SqlSession sqlSession = getSqlSession();
+        try{
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            SysUser user = userMapper.selectById(1011l);
+            if(user!=null) {
+                System.out.println("要删除的数据："+user.toString());
+                int result = userMapper.deleteById(1011l);
+                sqlSession.commit();
+                System.out.println("受影响行数：" + result);
+                List<SysUser> list = userMapper.selectAll();
+                printSysUserList(list);
+            }
+        }catch(Exception e){
             sqlSession.rollback();
             e.printStackTrace();
         }finally {

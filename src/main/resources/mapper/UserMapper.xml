@@ -70,7 +70,7 @@
         user_email=#{userEmail},
         user_info=#{userInfo},
         head_img=#{headImg,jdbcType=BLOB},
-        create_time=#{createTime,jdbcType=DATA}
+        create_time=#{createTime,jdbcType=TIMESTAMP}
         WHERE id=#{id}
     </update>
     <delete id="deleteById">
