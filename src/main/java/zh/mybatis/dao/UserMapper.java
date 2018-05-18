@@ -1,5 +1,6 @@
 package zh.mybatis.dao;
 
+import org.apache.ibatis.annotations.Param;
 import zh.mybatis.domain.SysRole;
 import zh.mybatis.domain.SysUser;
 
@@ -59,4 +60,18 @@ public interface UserMapper {
      * @return
      */
     int deleteById(Long id);
+
+    /**
+     * 根据用户id和角色的enabled状态获取用户的角色
+     * @param userId
+     * @param enabled
+     * @return
+     * @Description 多个接口参数的用法，如果接口重要传多个值得话要用注释，让mybatis将参数转为map处理
+     * 不然回报 org.apache.ibatis.binding.BindingException: Parameter 'userId' not found.
+     * Available parameters are [0, 1, param1, param2]
+     * 0和1,param1和param2都是MyBatis根据参数位置自定义的名字，这时如果将XML中的#{userid} 改为#{0}或#{param1}
+     * 将#{enabled}改为#{1}或#{param2}，这个方法就可以被正常调用了。
+     * 这样讲只是为了让大家理解它们之间的关系，但实际上并不建议这么做。
+     */
+    List<SysRole> selectRolesByUseridAndRoleEnabled(@Param("userId")Long userId,@Param("enabled")Integer enabled);
 }

@@ -193,4 +193,19 @@ public class UserMapperTest extends BaseMapperTest {
             sqlSession.close();
         }
     }
+
+    @Test
+    public void testSelectRolesByUseridAndRoleEnabled(){
+        SqlSession sqlSession = getSqlSession();
+        try{
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            List<SysRole> list = userMapper.selectRolesByUseridAndRoleEnabled(1l,1);
+            printSysRoleList(list);
+        }catch (Exception e){
+            sqlSession.rollback();
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+    }
 }
