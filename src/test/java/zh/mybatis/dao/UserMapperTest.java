@@ -7,9 +7,7 @@ import org.junit.Test;
 import zh.mybatis.domain.SysRole;
 import zh.mybatis.domain.SysUser;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class UserMapperTest extends BaseMapperTest {
 
@@ -334,6 +332,32 @@ public class UserMapperTest extends BaseMapperTest {
 
             Assert.assertEquals(2,  result);
 
+        }catch (Exception e){
+            sqlSession.rollback();
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testUpdateByMap(){
+        SqlSession sqlSession = getSqlSession();
+        try{
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            Map<String,Object> map = new HashMap<String,Object>();
+            //查询条件，同样也是更新字段，必须保证该值存在
+            map.put("id",1l);
+            //要更新的其他字段
+            map.put("user_email","test@mybaris.tk");
+            map.put("user_password","123456789");
+            //更新数据
+            userMapper.updateByMap(map);
+            //commit
+            //sqlSession.commit();
+            //根据当前id查询修改后的数据
+            SysUser user = userMapper.selectById(1l);
+            Assert.assertEquals("test@mybaris.tk",user.getUserEmail());
         }catch (Exception e){
             sqlSession.rollback();
             e.printStackTrace();

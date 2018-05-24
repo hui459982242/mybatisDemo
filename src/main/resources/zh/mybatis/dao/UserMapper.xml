@@ -192,4 +192,11 @@
             #{id}
         </foreach>
     </select>
+    <update id="updateByMap">
+        UPDATE sys_user SET
+        <foreach collection="_parameter" item="val" index="key" separator=",">
+            ${key}=#{val}
+        </foreach>
+        WHERE id=#{id}
+    </update>
  </mapper>

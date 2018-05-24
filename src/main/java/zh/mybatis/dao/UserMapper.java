@@ -5,6 +5,7 @@ import zh.mybatis.domain.SysRole;
 import zh.mybatis.domain.SysUser;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserMapper {
     /**
@@ -158,4 +159,12 @@ public interface UserMapper {
      * @Description 在mapper.xml中需要有parameterType数
      */
     int insertList(List<SysUser> list);
+
+    /**
+     * 通过Map更新列
+     *
+     * @param map
+     * @return
+     */
+    int updateByMap(Map<String,Object> map);
 }
