@@ -145,4 +145,51 @@
             SELECT LAST_INSERT_ID()
         </selectKey>
     </insert>
-</mapper>
+    <select id="selectByidOrUserName" resultType="zh.mybatis.domain.SysUser">
+        SELECT id,
+            user_name,
+            user_password,
+            user_email,
+            user_info,
+            head_img,
+            create_time
+        FROM sys_user
+        WHERE 1=1
+        <choose>
+            <when test="id!=null">
+                and id=#{id}
+            </when>
+            <otherwise>
+                and 1=2
+            </otherwise>
+        </choose>
+    </select>
+    <select id="selectByidList1" resultType="zh.mybatis.domain.SysUser">
+        SELECT id,
+            user_name,
+            user_password,
+            user_email,
+            user_info,
+            head_img,
+            create_time
+        FROM sys_user
+        WHERE id IN
+        <foreach collection="list" open="(" close=")" item="id" index="i" separator=",">
+            #{id}
+        </foreach>
+    </select>
+    <select id="selectByidList2" resultType="zh.mybatis.domain.SysUser" parameterType="zh.mybatis.domain.SysUser">
+        SELECT id,
+        user_name,
+        user_password,
+        user_email,
+        user_info,
+        head_img,
+        create_time
+        FROM sys_user
+        WHERE id IN
+        <foreach collection="list" open="(" close=")" item="id" index="i" separator=",">
+            #{id}
+        </foreach>
+    </select>
+ </mapper>

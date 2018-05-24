@@ -1,11 +1,13 @@
 package zh.mybatis.dao;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.util.StringStack;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Assert;
 import org.junit.Test;
 import zh.mybatis.domain.SysRole;
 import zh.mybatis.domain.SysUser;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -260,6 +262,78 @@ public class UserMapperTest extends BaseMapperTest {
             sqlSession.commit();
             SysUser userSelect = userMapper.selectById(user.getId());
             System.out.println(userSelect.getUserName());
+        }catch (Exception e){
+            sqlSession.rollback();
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testSelectByidOrUserName(){
+        SqlSession sqlSession = getSqlSession();
+        try{
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            SysUser user = new SysUser();
+            user.setUserName("testuser");
+            user.setUserPassword("123456");
+            user.setId(1002l);
+            user.setCreateTime(new Date());
+            List<SysUser> list = userMapper.selectByidOrUserName(user);
+            Assert.assertTrue(list.size()>0);
+        }catch (Exception e){
+            sqlSession.rollback();
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testSelectByidList(){
+        SqlSession sqlSession = getSqlSession();
+        try{
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            List<Long> idList =  new ArrayList<Long>();
+            idList.add(1L);
+            idList.add(1001l);
+            List<SysUser> userList = userMapper.selectByidList1(idList);
+            Assert.assertTrue(userList.size()>0);
+            Assert.assertEquals(2,  userList.size());
+        }catch (Exception e){
+            sqlSession.rollback();
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testInsertList(){
+        SqlSession sqlSession = getSqlSession();
+        try{
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            List<SysUser> userList =  new ArrayList<SysUser>();
+            for(int i=2;i<4;i++) {
+                SysUser user = new SysUser();
+                user.setUserName("test"+i);
+                user.setUserPassword("123456");
+                user.setUserEmail("test@mybatis.tk");
+                userList.add(user);
+            }
+            //将新建的对象批量插入数据库中
+            //特别注意，这里的返回值result是执行SQL影响的行数
+            int result = userMapper.insertList(userList);
+            //sqlSession.commit();
+            //和单表一样，此处增加了useGeneratedKeys和keyProperty两个属性， 增加这两个
+            //属性后，简单修改测试类，输出id值。
+            for (SysUser user:userList){
+                System.out.println(user.getId());
+            }
+
+            Assert.assertEquals(2,  result);
+
         }catch (Exception e){
             sqlSession.rollback();
             e.printStackTrace();

@@ -104,4 +104,58 @@ public interface UserMapper {
      *
      */
     int insert2Dynamic(SysUser user);
+
+    /**
+     * 根据用户id或用户名查询
+     *
+     * @param user
+     * @return
+     * @Description 使用choose when otherwise的时候逻辑要严密，避免由于某些值出现问题导致SQL出错。
+     *
+     * 在以上查询中，如果没有otherwise这个限制条件，所有的用户都会被查询出来，
+     * 因为我们在对应的接口方法中使用了SysUser作为返回值，所以当实际查询结果是多个时就会报错。
+     * 添加otherwise条件后，由于where条件不满足，因此在这种情况下就查询不到结果。
+     */
+    List<SysUser> selectByidOrUserName(SysUser user);
+
+    /**
+     * 根据用户id集合查询（集合）
+     *
+     * @param idList
+     * @return
+     * @Description foreach包含以下属性:
+     * 1、collection 必填，值为要选代循环的属性名。这个属性值的情况有很多。
+     * 2、item：变量名，值为从法代对象中取出的每一个值。
+     * 3、index：索引的属性名，在集合数组情况下值为当前索引值， 当选代循环的对象是Map类型时，这个值为Map的key （键值）。
+     * 4、open：整个循环内容开头的字符串。
+     * 5、close： 整个循环内容结尾的字符串。
+     * 6、separator：每次循环的分隔符
+     *
+     * 有多个参数：
+     * 当有多个参数的时候，要使用＠Param注解给每个参数指定一个名字，
+     * 否则在SQL中使用参数时就会不方便，因此将collection设置为＠Param注解指定的名字即可。
+     *
+     * 参数是Map类型：
+     * 使用Map和使用@Param注解方式类似，将collection指定为对应Map中的key即可。
+     * 如果要循环所传入的Map，推荐使用＠Param注解指定名字，
+     * 此时可将collection设置为指定的名字，如果不想指定名字，就使用默认值_parameter。
+     */
+    List<SysUser> selectByidList1(@Param("list") List<Long> idList);
+
+    /**
+     * 根据用户id集合查询（数组）
+     *
+     * @param idArray
+     * @return
+     */
+    List<SysUser> selectByidList2(@Param("list") Long[] idArray);
+
+    /**
+     * 批量插入用户信息
+     *
+     * @param list
+     * @return
+     * @Description 在mapper.xml中需要有parameterType数
+     */
+    int insertList(List<SysUser> list);
 }
