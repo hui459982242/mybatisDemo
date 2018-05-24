@@ -98,10 +98,51 @@
         create_time createTime
         from sys_user WHERE 1=1
         <if test="userName != null and userName != ''">
-            and user_name LIKE coηcat('%',#{userName},'%')
+            and user_name LIKE concat('%',#{userName},'%')
         </if>
         <if test="userEmail != null and userEmail != ''">
             and user_email = #{userEmail}
         </if>
     </select>
+    <update id="updateByldSelective">
+        UPDATE sys_user SET
+      <if test="userName!=null and userName!=''">
+        user_name = #{userName},
+      </if>
+      <if test="userPassword!=null and userPassword!=''">
+        user_password = #{userPassword},
+      </if>
+      <if test="userEmail!=null and userEmail!=''">
+        user_email = #{userEmail},
+      </if>
+      <if test="userInfo!=null and userlnfo!=''">
+        user_info = #{userInfo},
+      </if>
+      <if test="headImg!=null">
+        head_img = #{headImg,jdbcType=BLOB},
+      </if>
+      <if test="createTime!=null">
+        create_time = #{createTime, jdbcType=TIMESTAMP},
+      </if>
+      id = #{id}
+      where id = #{id}
+    </update>
+    <insert id="insert2Dynamic">
+        insert into sys_user(
+        user_name,user_password,
+        <if test="userEmail!=null and userEmail!=''">
+          user_email,
+        </if>
+        user_info,head_img,create_time)
+        values(
+        #{userName},#{userPassword},
+        <if test="userEmail!=null and userEmail!=''">
+          #{userEmail},
+        </if>
+        #{userInfo},#{headImg,jdbcType=BLOB},
+        #{createTime,jdbcType=TIMESTAMP})
+        <selectKey keyProperty="id" keyColumn="id" resultType="long" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
 </mapper>

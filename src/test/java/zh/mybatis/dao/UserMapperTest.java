@@ -210,7 +210,7 @@ public class UserMapperTest extends BaseMapperTest {
     }
 
     @Test
-    public List<SysUser> testSelectByUser(){
+    public void testSelectByUser(){
         SqlSession sqlSession = getSqlSession();
         try{
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
@@ -219,6 +219,49 @@ public class UserMapperTest extends BaseMapperTest {
             List<SysUser> list = userMapper.selectByUser(user);
             printSysUserList(list);
         }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+    }
+    @Test
+    public void testUpdateByldSelective(){
+        SqlSession sqlSession = getSqlSession();
+        try{
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            SysUser user = new SysUser();
+            user.setUserName("TaoTest");
+            user.setId(1001l);
+            user.setCreateTime(new Date());
+            int result = userMapper.updateByldSelective(user);
+            //直接回滚，因为Sqlsession 不会自动提交，需要手动sqlSession.commit();
+            sqlSession.rollback();
+            Assert.assertEquals(1,result);
+        }catch (Exception e){
+            sqlSession.rollback();
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testInsert2Dynamic(){
+        SqlSession sqlSession = getSqlSession();
+        try{
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            SysUser user = new SysUser();
+            user.setUserName("testuser");
+            user.setUserPassword("123456");
+            user.setUserInfo("这是一个动态插入的用户");
+            user.setCreateTime(new Date());
+            int result = userMapper.insert2Dynamic(user);
+            //直接回滚，因为Sqlsession 不会自动提交，需要手动sqlSession.commit();
+            sqlSession.commit();
+            SysUser userSelect = userMapper.selectById(user.getId());
+            System.out.println(userSelect.getUserName());
+        }catch (Exception e){
+            sqlSession.rollback();
             e.printStackTrace();
         }finally {
             sqlSession.close();

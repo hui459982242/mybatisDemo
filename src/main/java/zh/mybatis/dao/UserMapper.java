@@ -37,6 +37,9 @@ public interface UserMapper {
      * 新增用户，并返回自增id
      * @param sysUser
      * @return
+     * @Description 1、useGeneratedKeys设置为true后，MyBatis会使用JDBC的getGeneratedKeys方法来取出由数据库内部生成的主键
+     * 2、获得主键值后将其赋值给keyProperty配置的id属性。
+     * 当需要设置多个属性时，使用逗号隔开，这种情况下通常还需要设置keyColumn属性，按顺序指定数据库的列，这里列的值会和keyProperty配置的属性一一对应。
      */
     int insert2(SysUser sysUser);
 
@@ -82,4 +85,23 @@ public interface UserMapper {
      * @Description
      */
     List<SysUser> selectByUser(SysUser user);
+
+    /**
+     * 根据主键更新
+     * @param user
+     * @return
+     */
+    int updateByldSelective(SysUser user);
+
+    /**
+     * 在INSERT动态插入列中使用if
+     *
+     * @param user
+     * @return
+     * @Description 1、在数据库表中插入数据的时候，如果某一列的参数值不为空，就使用传入的值，如果传入参数为空，就使用数据库中的默认值（通常是空），而不使用传入的空值。
+     * 使用if就可以实现这种动态插入列的功能。
+     * 2、在INSERT中使用时要注意，若在列的部分增加if条件，则values的部分也要增加相同的if条件，必须保证上下可以互相对应，完全匹配。
+     *
+     */
+    int insert2Dynamic(SysUser user);
 }
