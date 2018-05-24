@@ -74,4 +74,12 @@ public interface UserMapper {
      * 这样讲只是为了让大家理解它们之间的关系，但实际上并不建议这么做。
      */
     List<SysRole> selectRolesByUseridAndRoleEnabled(@Param("userId")Long userId,@Param("enabled")Integer enabled);
+
+    /**
+     * 根据动态条件查询用户信息
+     * @param user
+     * @return
+     * @Description
+     */
+    List<SysUser> selectByUser(SysUser user);
 }
