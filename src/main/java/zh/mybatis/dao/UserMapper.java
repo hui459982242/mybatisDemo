@@ -167,4 +167,42 @@ public interface UserMapper {
      * @return
      */
     int updateByMap(Map<String,Object> map);
+
+    /**
+     * 根据用户id获取用户信息和用户的角色信息
+     * @param id
+     * @return
+     */
+    SysUser selectRolesByUserid(Long id);
+
+    /**
+     * 根据用户id获取用户信息和用户的角色信息(方法2)
+     * @param id
+     * @return
+     * @Description
+     */
+    SysUser selectUserAndRoleById2(Long id);
+
+    /**
+     * 根据用户id获取用户信息和用户的角色信息
+     * @param id
+     * @return
+     * @Description 特别提醒
+     * 许多对延迟加载原理不太熟悉的朋友会经常遇到一些莫名其妙的问题：有些时候延迟加载可以得到数据，
+     * 有些时候延迟加载就会报错，为什么会出现这种情况呢？
+     *
+     * MyBatis延迟加载是通过动态代理实现的，当调用配直为延迟加载的属性方法时，动态代理的操作会被触发，
+     * 这些额外的操作就是通过MyBatis的SqlSessio口去执行嵌套SQL的。
+     * 由于在和某些框架集成时，SqlSession 的生命周期交给了框架来管理，因此当对象超出SqlSession生命周期调用时，会由于链接关闭等问题而抛出异常。
+     * 在和Spring集成时，要确保只能在Service层调用延迟加载的属性。
+     * 当结果从Service层返回至Controller层时，如果获取延迟加载的属性值，会因为SqlSessio口已经关闭而抛出异常。
+     * 许多对延迟加载原理不太熟悉的朋友会经常遇到一些莫名其妙的问题：有些时候延迟加载可以得到数据，有些时候延迟加载就会报错，为什么会出现这种情况呢？
+     * MyBatis延迟加载是通过动态代理实现的，当调用配直为延迟加载的属性方法时，动态代理的操作会被触发，这些额外的操作就是通过MyBatis的SqlSessio口去执行嵌套SQL的。
+     * 由于在和某些框架集成时，SqlSession 的生命周期交给了框架来管理，因此当对象超出SqlSession生命周期调用时，会由于链接关闭等问题而抛出异常。
+     *
+     * 在和Spring集成时，要确保只能在Service层调用延迟加载的属性。
+     *
+     * 当结果从Service层返回至Controller层时，如果获取延迟加载的属性值，会因为SqlSessio口已经关闭而抛出异常。
+     */
+    SysUser selectUserAndRoleByIdSelect(Long id);
 }

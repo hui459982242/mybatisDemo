@@ -18,7 +18,7 @@ public class SysRole {
     /**
      * 创建人ID
      */
-    private int creatBy;
+    private int createBy;
     /**
      * 创建时间
      */
@@ -52,12 +52,12 @@ public class SysRole {
         this.enabled = enabled;
     }
 
-    public int getCreatBy() {
-        return creatBy;
+    public int getCreateBy() {
+        return createBy;
     }
 
-    public void setCreatBy(int creatBy) {
-        this.creatBy = creatBy;
+    public void setCreateBy(int creatBy) {
+        this.createBy = createBy;
     }
 
     public Date getCreateTime() {
@@ -82,7 +82,7 @@ public class SysRole {
                 "id=" + id +
                 ", roleName='" + roleName + '\'' +
                 ", enabled=" + enabled +
-                ", creatBy=" + creatBy +
+                ", createBy=" + createBy +
                 ", createTime=" + createTime +
                 ", user=["+user.getUserName()+","+user.getUserEmail()+"]" +
                 '}';

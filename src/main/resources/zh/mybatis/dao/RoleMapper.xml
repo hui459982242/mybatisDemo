@@ -2,4 +2,21 @@
         <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="zh.mybatis.dao.RoleMapper">
+        <resultMap id="roleMap" type="zh.mybatis.domain.SysRole">
+                <id property="id" column="id"/>
+                <result property="roleName" column="role_name"/>
+                <result property="enabled"  column="enabled"/>
+                <result property="createBy" column="create_by"/>
+                <result property="createTime" column="create_time"  jdbcType="TIMESTAMP"/>
+        </resultMap>
+        <select id="selectRoleById" resultMap="roleMap">
+                SELECT id,
+                role_name,
+                enabled,
+                create_by,
+                create_time
+                FROM
+                sys_role
+                WHERE id=${id}
+        </select>
 </mapper>

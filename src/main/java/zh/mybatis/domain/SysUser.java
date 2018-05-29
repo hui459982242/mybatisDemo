@@ -35,6 +35,18 @@ public class SysUser {
      * 创建时间
      */
     private Date createTime;
+    /**
+     * 用户角色
+     */
+    private SysRole role;
+
+    public SysRole getRole() {
+        return role;
+    }
+
+    public void setRole(SysRole role) {
+        this.role = role;
+    }
 
     public Long getId() {
         return id;
@@ -102,6 +114,12 @@ public class SysUser {
                 ", userInfo='" + userInfo + '\'' +
                 ", headImg=" + Arrays.toString(headImg) +
                 ", createTime=" + createTime +
-                '}';
+                ", role={"+"id=" + id +
+                ", roleName='" + role.getRoleName() + '\'' +
+                ", enabled=" + role.getEnabled() +
+                ", creatBy=" + role.getCreateBy() +
+                ", createTime=" + role.getCreateTime() +
+                "}"+
+                "}";
     }
 }

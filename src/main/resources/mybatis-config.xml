@@ -8,6 +8,8 @@
         <!-- 开启驼峰命名法[将数据库中以下划线的列名转换为驼峰命名，
         例如：数据库中user_name，mybatis就转换为userName] -->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!-- 为了避免本该延迟加载的属性直接加载 -->
+        <setting name="aggressiveLazyLoading" value="false"/>
     </settings>
     <typeAliases>
         <!-- 对应类的全路径 -->
