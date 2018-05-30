@@ -2,4 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="zh.mybatis.dao.PrivilegeMapper">
+    <resultMap id="privilegeMap" type="zh.mybatis.domain.SysPrivilege">
+        <id column="id" property="id"/>
+        <result property="privilegeName" column="privilege_name"/>
+        <result property="privilegeUrl" column="privilege_url"/>
+    </resultMap>
 </mapper>

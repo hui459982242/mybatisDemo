@@ -8,11 +8,11 @@ public class SysPrivilege {
     /**
      * 权限名称
      */
-    private String privilege_name;
+    private String privilegeName;
     /**
      * 权限URL
      */
-    private String privilege_url;
+    private String privilegeUrl;
 
     public Long getId() {
         return id;
@@ -22,28 +22,19 @@ public class SysPrivilege {
         this.id = id;
     }
 
-    public String getPrivilege_name() {
-        return privilege_name;
+    public String getPrivilegeName() {
+        return privilegeName;
     }
 
-    public void setPrivilege_name(String privilege_name) {
-        this.privilege_name = privilege_name;
+    public void setPrivilegeName(String privilegeName) {
+        this.privilegeName = privilegeName;
     }
 
-    public String getPrivilege_url() {
-        return privilege_url;
+    public String getPrivilegeUrl() {
+        return privilegeUrl;
     }
 
-    public void setPrivilege_url(String privilege_url) {
-        this.privilege_url = privilege_url;
-    }
-
-    @Override
-    public String toString() {
-        return "SysPrivilege{" +
-                "id=" + id +
-                ", privilege_name='" + privilege_name + '\'' +
-                ", privilege_url='" + privilege_url + '\'' +
-                '}';
+    public void setPrivilegeUrl(String privilegeUrl) {
+        this.privilegeUrl = privilegeUrl;
     }
 }

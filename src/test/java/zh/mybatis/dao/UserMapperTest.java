@@ -4,6 +4,7 @@ import com.sun.org.apache.xalan.internal.xsltc.compiler.util.StringStack;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Assert;
 import org.junit.Test;
+import zh.mybatis.domain.SysPrivilege;
 import zh.mybatis.domain.SysRole;
 import zh.mybatis.domain.SysUser;
 
@@ -424,6 +425,29 @@ public class UserMapperTest extends BaseMapperTest {
                 System.out.println("用尸名:"+user.getUserName());
                 for (SysRole role:user.getRoleList()) {
                     System.out.println("角色名："+role.getRoleName());
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testRolePrivilegeListMap(){
+        SqlSession sqlSession = getSqlSession();
+        try{
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            List<SysUser> list = userMapper.rolePrivilegeListMap();
+            System.out.println("用户数："+ list.size());
+            for (SysUser user : list) {
+                System.out.println("用尸名:"+user.getUserName());
+                for (SysRole role:user.getRoleList()) {
+                    System.out.println("角色名：" + role.getRoleName());
+                    for (SysPrivilege privilege : role.getPrivilegeList()) {
+                        System.out.println("权限名：" + privilege.getPrivilegeName());
+                    }
                 }
             }
         }catch (Exception e){

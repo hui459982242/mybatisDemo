@@ -54,7 +54,13 @@
         </collection>-->
         <!-- 下面的写法更精简 -->
         <collection property="roleList" columnPrefix="role_"
-        resultMap="zh.mybatis.dao.RoleMapper.roleMap"/>
+                    resultMap="zh.mybatis.dao.RoleMapper.roleMap"/>
+    </resultMap>
+
+    <resultMap id="userRolePrivilegeListMap" extends="userMap"
+               type="zh.mybatis.domain.SysUser">
+        <collection property="roleList" columnPrefix="role_"
+                    resultMap="zh.mybatis.dao.RoleMapper.rolePrivilegeListMap"/>
     </resultMap>
 
     <select id="selectById" resultMap="userMap">
@@ -312,5 +318,28 @@
         from sys_user u
         inner join sys_user_role ur on u.id = ur.user_id
         inner join sys_role r  on ur.role_id = r.id
+    </select>
+    <select id="rolePrivilegeListMap" resultMap="userRolePrivilegeListMap">
+        select
+        u.id,
+        u.user_name,
+        u.user_password,
+        u.user_email,
+        u. user_info,
+        u.head_img,
+        u.create_time,
+        r.id role_id,
+        r.role_name role_role_name,
+        r.enabled role_enabled,
+        r.create_by role_create_by,
+        r.create_time  role_create_time,
+        p.id role_privilege_id,
+        p.privilege_name role_privilege_privilege_name,
+        p.privilege_url role_privilege_privilege_url
+        from sys_user u
+        inner join sys_user_role ur on u.id = ur.user_id
+        inner join sys_role r  on ur.role_id = r.id
+        inner join sys_role_privilege rp on rp.role_id = r.id
+        inner join sys_privilege p on p.id = rp.privilege_id
     </select>
 </mapper>

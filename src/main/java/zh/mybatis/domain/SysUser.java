@@ -130,8 +130,6 @@ public class SysUser {
                 ", role={"+"id=" + id +
                 ", roleName='" + role.getRoleName() + '\'' +
                 ", enabled=" + role.getEnabled() +
-                ", creatBy=" + role.getCreateBy() +
-                ", createTime=" + role.getCreateTime() +
                 "}"+
                 "}";
     }

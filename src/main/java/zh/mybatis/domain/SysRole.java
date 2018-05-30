@@ -1,6 +1,7 @@
 package zh.mybatis.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class SysRole {
     /**
@@ -18,15 +19,31 @@ public class SysRole {
     /**
      * 创建人ID
      */
-    private int createBy;
+    //private int createBy;
     /**
      * 创建时间
      */
-    private Date createTime;
+    //private Date createTime;
+    /**
+     * 创建人和创建时间信息
+     */
+    private Createinfo createinfo;
     /**
      * 对应用户信息
      */
     private SysUser user;
+    /**
+     * 对应权限集
+     */
+    private List<SysPrivilege> privilegeList;
+
+    public List<SysPrivilege> getPrivilegeList() {
+        return privilegeList;
+    }
+
+    public void setPrivilegeList(List<SysPrivilege> privilegeList) {
+        this.privilegeList = privilegeList;
+    }
 
     public Long getId() {
         return id;
@@ -52,7 +69,7 @@ public class SysRole {
         this.enabled = enabled;
     }
 
-    public int getCreateBy() {
+    /*public int getCreateBy() {
         return createBy;
     }
 
@@ -66,6 +83,14 @@ public class SysRole {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }*/
+
+    public Createinfo getCreateinfo() {
+        return createinfo;
+    }
+
+    public void setCreateinfo(Createinfo createinfo) {
+        this.createinfo = createinfo;
     }
 
     public SysUser getUser() {
@@ -82,8 +107,6 @@ public class SysRole {
                 "id=" + id +
                 ", roleName='" + roleName + '\'' +
                 ", enabled=" + enabled +
-                ", createBy=" + createBy +
-                ", createTime=" + createTime +
                 '}';
     }
 }

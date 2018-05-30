@@ -212,4 +212,10 @@ public interface UserMapper {
      * @return
      */
     List<SysUser> selectAllUserAndRoles();
+
+    /**
+     * 获取所有的用户以及对应的所有角色的权限
+     * @return
+     */
+    List<SysUser> rolePrivilegeListMap();
 }
