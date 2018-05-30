@@ -2,11 +2,16 @@ package zh.mybatis.domain;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 用户表
  */
 public class SysUser {
+    /**
+     * 用户的角色集合
+     */
+    private List<SysRole> roleList;
     /**
      * 用户id
      */
@@ -39,6 +44,14 @@ public class SysUser {
      * 用户角色
      */
     private SysRole role;
+
+    public List<SysRole> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<SysRole> roleList) {
+        this.roleList = roleList;
+    }
 
     public SysRole getRole() {
         return role;

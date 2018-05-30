@@ -84,7 +84,6 @@ public class SysRole {
                 ", enabled=" + enabled +
                 ", createBy=" + createBy +
                 ", createTime=" + createTime +
-                ", user=["+user.getUserName()+","+user.getUserEmail()+"]" +
                 '}';
     }
 }

@@ -205,4 +205,11 @@ public interface UserMapper {
      * 当结果从Service层返回至Controller层时，如果获取延迟加载的属性值，会因为SqlSessio口已经关闭而抛出异常。
      */
     SysUser selectUserAndRoleByIdSelect(Long id);
+
+    /**
+     * 获取所有的用户以及对应的所有角色
+     * @param
+     * @return
+     */
+    List<SysUser> selectAllUserAndRoles();
 }
