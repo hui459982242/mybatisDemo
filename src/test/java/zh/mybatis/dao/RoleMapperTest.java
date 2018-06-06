@@ -30,4 +30,21 @@ public class RoleMapperTest extends BaseMapperTest {
             sqlSession.close();
         }
     }
+
+    @Test
+    public void testSelectRoleByUserId(){
+        SqlSession sqlSession = getSqlSession();
+        try{
+            RoleMapper roleMapper =  sqlSession.getMapper(RoleMapper.class);
+            List<SysRole> list = roleMapper.selectRoleByUserId(1l);
+            for (SysRole role:
+                    list) {
+                System.out.println("角色名："+role.getRoleName());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+    }
 }

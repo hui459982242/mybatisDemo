@@ -20,4 +20,11 @@ public interface RoleMapper {
      * @return
      */
     List<SysRole> selectAllRoleAndPrivileges();
+
+    /**
+     * 根据userId获取角色信息
+     * @param userid
+     * @return
+     */
+    List<SysRole> selectRoleByUserId(long userid);
 }
